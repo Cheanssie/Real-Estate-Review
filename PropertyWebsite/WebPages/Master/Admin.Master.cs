@@ -11,7 +11,10 @@ namespace PropertyWebsite.WebPages.Master
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["email"] != null && Session["role"].ToString() != "admin")
+            {
+                Response.Redirect(HttpContext.Current.Request.ApplicationPath + "WebPages/Client/Homepage.aspx");
+            }
         }
     }
 }

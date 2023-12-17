@@ -148,7 +148,7 @@
                 <div class="form-group col">
                     <label class="form-label">Property Name</label>
                     <asp:TextBox ID="txtPropName" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="tfv" runat="server" ErrorMessage="Please fill in the property name" ControlToValidate="txtPropName" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvPropName" runat="server" ErrorMessage="Please fill in the property name" ControlToValidate="txtPropName" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>              
             </div>
             <div class="row mb-3">
@@ -162,7 +162,7 @@
                 <div class="col">
                     <label class="form-label">Address</label><br />
                     <asp:TextBox ID="txtPropAddress" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtPropAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvPropAdd" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtPropAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
 
@@ -244,14 +244,14 @@
                 <div class="col">
                     <label class="form-label">Description</label><br />
                     <asp:TextBox ID="txtEditPropDesc" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtEditPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtEditPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="editprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label">Address</label><br />
                     <asp:TextBox ID="txtEditAddress" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtEditAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtEditAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="editprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
             

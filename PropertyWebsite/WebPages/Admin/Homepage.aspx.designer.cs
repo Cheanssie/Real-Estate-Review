@@ -42,13 +42,13 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.TextBox txtPropName;
 
         /// <summary>
-        /// tfv control.
+        /// rfvPropName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator tfv;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPropName;
 
         /// <summary>
         /// txtPropDesc control.
@@ -78,13 +78,13 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.TextBox txtPropAddress;
 
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// rfvPropAdd control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPropAdd;
 
         /// <summary>
         /// txtPropPrice control.
