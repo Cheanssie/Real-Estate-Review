@@ -38,15 +38,72 @@
                     <input type="text" id="txtSearch" class="form-control text-black" title="Search by Property Name" placeholder="Search" />
                 </div>
                 <div class="text-end">
-                    <button id="btn-addProd" class="btn btn-primary" type="button">Add Product</button>
+                    <button id="btn-addProd" class="btn btn-primary" type="button">Add Property</button>
                 </div>
             </div>
                 <hr />
             </div>
             <% if (GridView1.Rows.Count != 0)
                 { %>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT * FROM [Property]">
-            </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' 
+
+                    SelectCommand="SELECT * FROM [Property]"
+            
+                    DeleteCommand="DELETE FROM [Property] WHERE [propId] = @original_propId AND [propName] = @original_propName AND 
+                    [propAddress] = @original_propAddress AND [category] = @original_category AND [area] = @original_area AND 
+                    [description] = @original_description AND [startPrice] = @original_startPrice AND [endPrice] = @original_endPrice"
+                    
+                    InsertCommand="INSERT INTO [Property] ([propId], [propName], [propAddress], [category], [area], [description], [startPrice], [endPrice]) 
+                    VALUES (@propId, @propName, @propAddress, @category, @area, @description, @startPrice, @endPrice)" 
+                    OldValuesParameterFormatString="original_{0}"
+                    
+                   UpdateCommand="UPDATE [Property] SET [propName] = @propName, [propAddress] = @propAddress, [category] = @category, 
+                    [area] = @area, [description] = @description, [startPrice] = @startPrice, [endPrice] = @endPrice
+                    WHERE [propId] = @original_propId AND [propName] = @original_propName AND [propAddress] = @original_propAddress AND
+                    [category] = @original_category AND [area] = @original_area AND [description] = @original_description AND
+                    [startPrice] = @original_startPrice AND [endPrice] = @original_endPrice">
+                    
+                <DeleteParameters>
+                    <asp:Parameter Name="original_propId" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_propName" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_propAddress" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_category" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_area" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_startPrice" Type="Double"></asp:Parameter>
+                    <asp:Parameter Name="original_endPrice" Type="Double"></asp:Parameter>
+                </DeleteParameters>
+
+                <InsertParameters>
+                    <asp:Parameter Name="propId" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="propName" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="propAddress" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="category" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="area" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="startPrice" Type="Double"></asp:Parameter>
+                    <asp:Parameter Name="endPrice" Type="Double"></asp:Parameter>
+                </InsertParameters>
+
+                <UpdateParameters>
+                    <asp:Parameter Name="propName" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="propAddress" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="category" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="area" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="startPrice" Type="Double"></asp:Parameter>
+                    <asp:Parameter Name="endPrice" Type="Double"></asp:Parameter>
+                    <asp:Parameter Name="original_propId" />
+                    <asp:Parameter Name="original_propName" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_propAddress" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_category" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_area" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_description" Type="String"></asp:Parameter>
+                    <asp:Parameter Name="original_startPrice" Type="Double"></asp:Parameter>
+                    <asp:Parameter Name="original_endPrice" Type="Double"></asp:Parameter>
+                </UpdateParameters>
+        </asp:SqlDataSource>
+
         <asp:GridView ID="GridView1" CssClass="table table-hover table-bordered text-center" runat="server" HorizontalAlign="Center" DataSourceID="SqlDataSource1"  AutoGenerateColumns="False" DataKeyNames="Pid" Font-Size="Smaller" OnRowCommand="GridView1_RowCommand">
             <Columns>
                 <asp:BoundField DataField="propId" HeaderText="ID" SortExpression="propId" ReadOnly="True"></asp:BoundField>
@@ -96,9 +153,9 @@
                 <div class="col-4">
                     <label class="form-label">Category</label>
                     <asp:DropDownList ID="ddlPropCategory" CssClass="form-select" runat="server">
-                        <asp:ListItem>Desktop</asp:ListItem>
-                        <asp:ListItem>Laptop</asp:ListItem>
-                        <asp:ListItem>Computer Part</asp:ListItem>
+                        <asp:ListItem>Airbnb</asp:ListItem>
+                        <asp:ListItem>Homestay</asp:ListItem>
+                        <asp:ListItem>Hotel</asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>
@@ -107,17 +164,36 @@
             <asp:RequiredFieldValidator ID="rfvPropDesc" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
             <div class="row mt-3">
                 <div class="col-6">
-                    <label class="form-label">Price</label>
+                    <label class="form-label">Start Price</label>
                     <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPropPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revPropPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col-6">
-                    <label class="form-label">Price</label>
+                    <label class="form-label">End Price</label>
                     <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPropEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revPropEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
                 </div>
+            </div>
+            <div class="col">
+                    <label class="form-label">Area</label>
+                    <asp:DropDownList ID="DropDownList1" CssClass="form-select" runat="server">
+                        <asp:ListItem>Kuala Lumpur</asp:ListItem>
+                        <asp:ListItem>Selangor</asp:ListItem>
+                        <asp:ListItem>Malacca</asp:ListItem>
+                        <asp:ListItem>Johor</asp:ListItem>
+                        <asp:ListItem>Pahang</asp:ListItem>
+                        <asp:ListItem>Kelantan</asp:ListItem>
+                        <asp:ListItem>Terengganu</asp:ListItem>
+                        <asp:ListItem>Penang</asp:ListItem>
+                        <asp:ListItem>Sabah</asp:ListItem>
+                        <asp:ListItem>Sarawak</asp:ListItem>
+                        <asp:ListItem>Perlis</asp:ListItem>
+                        <asp:ListItem>Kedah</asp:ListItem>
+                        <asp:ListItem>Negeri Sembilan</asp:ListItem>
+                        <asp:ListItem>Perak</asp:ListItem>
+                    </asp:DropDownList>
             </div>
             <div class="row mt-3 mb-5">
                 <label class="form-label">Upload Image</label><br />
