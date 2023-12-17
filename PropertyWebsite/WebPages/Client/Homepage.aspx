@@ -311,7 +311,25 @@
                         targetUserCount = data.d[0];
                         targetPropertyCount = data.d[1];
                         targetRateCount = data.d[2];
+                        const intervalId = setInterval(() => {
+                            userCount += Math.ceil((targetUserCount - userCount) / 5);
+                            rateCount += Math.ceil((targetRateCount - rateCount) / 5);
+                            propertyCount += Math.ceil((targetPropertyCount - propertyCount) / 5);
 
+                            userCounter.textContent = userCount;
+                            rateCounter.textContent = rateCount;
+                            propertyCounter.textContent = propertyCount;
+
+                            animateCounter(userCounter);
+                            animateCounter(rateCounter);
+
+                            if (userCount >= targetUserCount && rateCount >= targetRateCount) {
+                                clearInterval(intervalId);
+                                userCounter.classList.remove('animated');
+                                propertyCounter.classList.remove('animated');
+                                rateCounter.classList.remove('animated');
+                            }
+                        }, 100); // Adjust the interval duration for faster animation
                     }
                 },
                 error: function (error) {
@@ -321,26 +339,7 @@
                     targetRateCount = 0;
                 }
             });
-
-            const intervalId = setInterval(() => {
-                userCount += Math.ceil((targetUserCount - userCount) / 5);
-                rateCount += Math.ceil((targetRateCount - rateCount) / 5);
-                propertyCount += Math.ceil((targetPropertyCount - propertyCount) / 5);
-
-                userCounter.textContent = userCount;
-                rateCounter.textContent = rateCount;
-                propertyCounter.textContent = propertyCount;
-
-                animateCounter(userCounter);
-                animateCounter(rateCounter);
-
-                if (userCount >= targetUserCount && rateCount >= targetRateCount) {
-                    clearInterval(intervalId);
-                    userCounter.classList.remove('animated');
-                    propertyCounter.classList.remove('animated');
-                    rateCounter.classList.remove('animated');
-                }
-            }, 100); // Adjust the interval duration for faster animation
+            
         }
 
         // Function to add the animation class
