@@ -51,15 +51,6 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.RequiredFieldValidator tfv;
 
         /// <summary>
-        /// ddlPropCategory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPropCategory;
-
-        /// <summary>
         /// txtPropDesc control.
         /// </summary>
         /// <remarks>
@@ -76,6 +67,24 @@ namespace PropertyWebsite.WebPages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPropDesc;
+
+        /// <summary>
+        /// txtPropAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPropAddress;
+
+        /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
         /// txtPropPrice control.
@@ -132,6 +141,15 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revPropEPrice;
 
         /// <summary>
+        /// ddlPropCategory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlPropCategory;
+
+        /// <summary>
         /// DropDownList1 control.
         /// </summary>
         /// <remarks>
@@ -186,13 +204,13 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEditPropName;
 
         /// <summary>
-        /// txtPropId control.
+        /// txtEditPropId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPropId;
+        protected global::System.Web.UI.WebControls.TextBox txtEditPropId;
 
         /// <summary>
         /// txtEditPropDesc control.
@@ -202,6 +220,33 @@ namespace PropertyWebsite.WebPages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEditPropDesc;
+
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+
+        /// <summary>
+        /// txtEditAddress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEditAddress;
+
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
 
         /// <summary>
         /// txtEditPrice control.
@@ -267,13 +312,13 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlEditPropCategory;
 
         /// <summary>
-        /// ddlPropArea control.
+        /// ddlEditPropArea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPropArea;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEditPropArea;
 
         /// <summary>
         /// fuEditImg control.

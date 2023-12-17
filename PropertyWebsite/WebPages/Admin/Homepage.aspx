@@ -13,7 +13,7 @@
 
         #popup-container, #popup-container-edit, #popup-container-delete, #report-popup {
             position: fixed;
-            top: 40%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 9999;
@@ -145,12 +145,41 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="form-group col-8">
+                <div class="form-group col">
                     <label class="form-label">Property Name</label>
                     <asp:TextBox ID="txtPropName" CssClass="form-control" runat="server" ValidationGroup="addprod"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="tfv" runat="server" ErrorMessage="Please fill in the property name" ControlToValidate="txtPropName" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                </div>              
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label">Description</label><br />
+                    <asp:TextBox ID="txtPropDesc" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPropDesc" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>
-                <div class="col-4">
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label">Address</label><br />
+                    <asp:TextBox ID="txtPropAddress" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <label class="form-label">Start Price</label>
+                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPropPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="revPropPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
+                </div>
+                <div class="col">
+                    <label class="form-label">End Price</label>
+                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPropEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="revPropEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
+                </div>
+                <div class="col">
                     <label class="form-label">Category</label>
                     <asp:DropDownList ID="ddlPropCategory" CssClass="form-select" runat="server">
                         <asp:ListItem>Airbnb</asp:ListItem>
@@ -158,25 +187,7 @@
                         <asp:ListItem>Hotel</asp:ListItem>
                     </asp:DropDownList>
                 </div>
-            </div>
-            <label class="form-label">Description</label><br />
-            <asp:TextBox ID="txtPropDesc" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
-            <asp:RequiredFieldValidator ID="rfvPropDesc" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
-            <div class="row mt-3">
-                <div class="col-6">
-                    <label class="form-label">Start Price</label>
-                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvPropPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="revPropPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
-                </div>
-                <div class="col-6">
-                    <label class="form-label">End Price</label>
-                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvPropEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
-                    <asp:RegularExpressionValidator ID="revPropEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
-                </div>
-            </div>
-            <div class="col">
+                <div class="col">
                     <label class="form-label">Area</label>
                     <asp:DropDownList ID="DropDownList1" CssClass="form-select" runat="server">
                         <asp:ListItem>Kuala Lumpur</asp:ListItem>
@@ -194,7 +205,9 @@
                         <asp:ListItem>Negeri Sembilan</asp:ListItem>
                         <asp:ListItem>Perak</asp:ListItem>
                     </asp:DropDownList>
+                </div>
             </div>
+           
             <div class="row mt-3 mb-5">
                 <label class="form-label">Upload Image</label><br />
                 <asp:FileUpload ID="fuProd" runat="server" ValidationGroup="addprod" />
@@ -224,11 +237,24 @@
                 </div>
                 <div class="col-4">
                     <label class="form-label">Property ID</label>
-                    <asp:TextBox ID="txtPropId" CssClass="form-control" runat="server" ValidationGroup="editprop" Enabled="false"></asp:TextBox>
+                    <asp:TextBox ID="txtEditPropId" CssClass="form-control" runat="server" ValidationGroup="editprop" Enabled="false"></asp:TextBox>
                 </div>
             </div>
-            <label class="form-label">Description</label><br />
-            <asp:TextBox ID="txtEditPropDesc" CssClass="form-control" runat="server"></asp:TextBox>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label">Description</label><br />
+                    <asp:TextBox ID="txtEditPropDesc" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtEditPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label">Address</label><br />
+                    <asp:TextBox ID="txtEditAddress" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtEditAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                </div>
+            </div>
+            
             <div class="row mt-3">
                 <div class="col">
                     <label class="form-label">Start Price</label>
@@ -252,7 +278,7 @@
                 </div>
                 <div class="col">
                     <label class="form-label">Area</label>
-                    <asp:DropDownList ID="ddlPropArea" CssClass="form-select" runat="server">
+                    <asp:DropDownList ID="ddlEditPropArea" CssClass="form-select" runat="server">
                         <asp:ListItem>Kuala Lumpur</asp:ListItem>
                         <asp:ListItem>Selangor</asp:ListItem>
                         <asp:ListItem>Malacca</asp:ListItem>
@@ -275,7 +301,7 @@
                 <asp:FileUpload ID="fuEditImg" runat="server" ValidationGroup="editprop" />
             </div>
             <div class="d-flex justify-content-center">
-                <asp:Button ID="btnEditSubmit" CssClass="btn btn-primary" Width="100%" runat="server" Text="Update" ValidationGroup="editprop" />
+                <asp:Button ID="btnEditSubmit" CssClass="btn btn-primary" Width="100%" runat="server" Text="Update" ValidationGroup="editprop" OnClick="btnEditSubmit_Click" />
             </div>
         </div>
     </div>
@@ -325,4 +351,6 @@
 
        
      </script>
+
+
 </asp:Content>
