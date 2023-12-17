@@ -185,11 +185,12 @@
                 </div>
                 <div id="searchSuggestions" class="pt-3 d-flex flex-wrap justify-content-start gap-4">
                     <!-- Suggestions will appear here -->
+                    <!-- Check it out in javascript -->
                 </div>
             </div>
             <div class="input-group mx-auto pt-3 d-flex flex-wrap justify-content-center gap-4">
                 <asp:DropDownList ID="ddlArea" runat="server" CssClass="border-0" Style="width: 120px;">
-                    <asp:ListItem Selected="True">All Area</asp:ListItem>
+                    <asp:ListItem Selected="True" Value="*">All Area</asp:ListItem>
                     <asp:ListItem>Kuala Lumpur</asp:ListItem>
                     <asp:ListItem>Selangor</asp:ListItem>
                     <asp:ListItem>Malacca</asp:ListItem>
@@ -205,8 +206,8 @@
                     <asp:ListItem>Negeri Sembilan</asp:ListItem>
                     <asp:ListItem>Perak</asp:ListItem>
                 </asp:DropDownList>
-                <asp:DropDownList ID="DropDownList1" runat="server" CssClass="border-0" Style="width: 120px;">
-                    <asp:ListItem Selected="True">All Category</asp:ListItem>
+                <asp:DropDownList ID="ddlCategory" runat="server" CssClass="border-0" Style="width: 120px;">
+                    <asp:ListItem Selected="True" Value="*">All Category</asp:ListItem>
                     <asp:ListItem>Air Bnb</asp:ListItem>
                     <asp:ListItem>Hotel</asp:ListItem>
                     <asp:ListItem>Homestay</asp:ListItem>

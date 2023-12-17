@@ -16,13 +16,33 @@ namespace PropertyWebsite.WebPages.Client
             if (!IsPostBack)
             {
                 keyword = Request.QueryString["searchText"] ?? "";
+                string category = Request.QueryString["category"] ?? "";
+                string area = Request.QueryString["area"] ?? "";
+                ddlCategory.SelectedValue = category;
+                ddlArea.SelectedValue = area;
 
-                if (!string.IsNullOrEmpty(keyword))
+                if (!string.IsNullOrEmpty(keyword) || category != "" || area != "")
                 {
                     // Use a parameterized query to avoid SQL injection
-                    SqlDataSource1.SelectCommand = "SELECT * FROM [Property] WHERE propName LIKE @keyword";
+                    SqlDataSource1.SelectCommand = "SELECT * FROM [Property] WHERE 1=1";
                     SqlDataSource1.SelectParameters.Clear();
-                    SqlDataSource1.SelectParameters.Add("keyword", "%" + keyword + "%");
+
+                    if(keyword != "")
+                    {
+                        SqlDataSource1.SelectCommand += " AND propName LIKE @keyword";
+                        SqlDataSource1.SelectParameters.Add("keyword", "%" + keyword + "%");
+                    }
+                    if (category != "*")
+                    {
+                        SqlDataSource1.SelectCommand += " AND category = @category";
+                        SqlDataSource1.SelectParameters.Add("category", category);                    
+                    }
+                    if (area != "*")
+                    {
+                        SqlDataSource1.SelectCommand += " AND area = @area";
+                        SqlDataSource1.SelectParameters.Add("area", area);
+                    }
+
                     ViewState["searchText"] = keyword;
                 }
                 else
@@ -70,9 +90,15 @@ namespace PropertyWebsite.WebPages.Client
             else
             {
                 // Reset the command to fetch all records if no search text is provided
-                SqlDataSource1.SelectCommand = "SELECT * FROM [Property] WHERE area LIKE @area AND category LIKE @category";
+                SqlDataSource1.SelectCommand = "SELECT * FROM [Property]";
                 SqlDataSource1.SelectParameters.Clear();
+                if (ddlCategory.SelectedValue != "*" || ddlArea.SelectedValue != "*")
+                {
+                    SqlDataSource1.SelectCommand += " WHERE 1=1";
+                }
             }
+
+
 
             if (ddlCategory.SelectedValue != "*")
             {

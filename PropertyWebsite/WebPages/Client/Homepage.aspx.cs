@@ -26,7 +26,7 @@ namespace PropertyWebsite.WebPages.Client
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string searchText = searchInput.Text.ToString();
-            Response.Redirect("Property.aspx?searchText=" + searchText);
+            Response.Redirect("Property.aspx?searchText=" + searchText + "&category=" + ddlCategory.SelectedValue + "&area=" + ddlArea.SelectedValue);
         }
     }
 }
