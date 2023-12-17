@@ -82,7 +82,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="../Admin/Manage-employee.aspx" id="order" class="nav-link text-white fs-6">
+                    <a href="../Admin/Employee.aspx" id="employee" class="nav-link text-white fs-6">
                         <i class="bi bi-receipt" width="16" height="16"></i>
                         <span class="sidebar-hide">Users</span>
                     </a>

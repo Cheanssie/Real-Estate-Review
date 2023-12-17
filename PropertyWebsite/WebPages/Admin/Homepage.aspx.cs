@@ -78,18 +78,19 @@ namespace PropertyWebsite.WebPages.Admin
 
         protected void btnAddProp_Click(object sender, EventArgs e)
         {
-            string propName = txtPropName.Text;
-            string propAddress = txtPropAddress.Text;
-            string propCategory = ddlPropCategory.SelectedValue;
-            string propArea = ddlPropArea.SelectedValue;
-            string propDesc = txtPropDesc.Text;
-            float propPrice = 0;
-            float.TryParse(txtPropPrice.Text, out propPrice);
-            float propEPrice = 0;
-            float.TryParse(txtPropEPrice.Text, out propEPrice);
-            string imgPath = "../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName);
-            fuAddProp.SaveAs(Server.MapPath("../img/PropertyImg/") + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName));
-
+            string propId = txtEditPropId.Text;
+            string propName = txtEditPropName.Text;
+            string propAddress = txtEditAddress.Text;
+            string propDesc = txtEditPropDesc.Text;
+            float propPrice, propEPrice;
+            float.TryParse(txtEditPrice.Text, out propPrice);
+            float.TryParse(txtEditEPrice.Text, out propEPrice);
+            string propCategory = ddlEditPropCategory.SelectedValue;
+            string propArea = ddlEditPropArea.SelectedValue;
+            string imgPath = "../../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName);
+            fuAddProp.SaveAs(Server.MapPath("../../Resources/PropertyImg/") + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName));
+            
+            conn.Open();
             cmd = new SqlCommand("INSERT INTO Property VALUES(@propName, @propAddress, @category, @area,  @description, @startPrice, @endPrice)", conn);
             cmd.Parameters.AddWithValue("@prodName", propName);
             cmd.Parameters.AddWithValue("@propAddress", propAddress);
@@ -102,10 +103,14 @@ namespace PropertyWebsite.WebPages.Admin
             //cmd = new SqlCommand("INSERT INTO PropertyImg VALUES(@url, SCOPE_IDENTITY())", conn);
             //cmd.Parameters.AddWithValue("@url", imgPath);
 
-            conn.Open();
             if (cmd.ExecuteNonQuery() != 0)
             {
                 GridView1.DataBind();
+                txtPropName.Text = "";
+                txtPropDesc.Text = "";
+                txtPropAddress.Text = "";
+                txtPropPrice.Text = "1";
+                txtPropEPrice.Text = "1";
                 string script = string.Format("openPopupMsg('{0}');", "Property added successfully");
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
             }
