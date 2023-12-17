@@ -30,9 +30,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="row mt-3">
             <div class="row d-flex align-content-center justify-content-center">
-                <div class="px-5">
+                <div class="col px-5">
                     <p class="fs-3">Property List</p>
                 </div>
+                <div class="col d-flex justify-content-end gap-2">
+                <div class="text-end">
+                    <input type="text" id="txtSearch" class="form-control text-black" title="Search by Property Name" placeholder="Search" />
+                </div>
+                <div class="text-end">
+                    <button id="btn-addProd" class="btn btn-primary" type="button">Add Product</button>
+                </div>
+            </div>
                 <hr />
             </div>
             <% if (GridView1.Rows.Count != 0)
@@ -69,6 +77,58 @@
             <% } %>
         </div>
 
+    <div id="popup-container" class="bg-white p-5 border-1 shadow w-50">
+        <div class="container">
+            <div class="row mb-2">
+                <div class="col-10">
+                    <p class="fs-3"><b>Add Property</b></p>
+                </div>
+                <div class="col-2 text-end">
+                    <button id="btn-closeProd" type="button" class="border-0 bg-transparent btn-close"></button>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="form-group col-8">
+                    <label class="form-label">Property Name</label>
+                    <asp:TextBox ID="txtPropName" CssClass="form-control" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="tfv" runat="server" ErrorMessage="Please fill in the property name" ControlToValidate="txtPropName" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                </div>
+                <div class="col-4">
+                    <label class="form-label">Category</label>
+                    <asp:DropDownList ID="ddlPropCategory" CssClass="form-select" runat="server">
+                        <asp:ListItem>Desktop</asp:ListItem>
+                        <asp:ListItem>Laptop</asp:ListItem>
+                        <asp:ListItem>Computer Part</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+            </div>
+            <label class="form-label">Description</label><br />
+            <asp:TextBox ID="txtPropDesc" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="rfvPropDesc" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+            <div class="row mt-3">
+                <div class="col-6">
+                    <label class="form-label">Price</label>
+                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPropPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="revPropPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
+                </div>
+                <div class="col-6">
+                    <label class="form-label">Price</label>
+                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvPropEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="revPropEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
+                </div>
+            </div>
+            <div class="row mt-3 mb-5">
+                <label class="form-label">Upload Image</label><br />
+                <asp:FileUpload ID="fuProd" runat="server" ValidationGroup="addprod" />
+                <asp:RequiredFieldValidator ID="rfvProdImg" runat="server" ErrorMessage="Please upload product image" ControlToValidate="fuProd" ForeColor="Red" ValidationGroup="addprod"></asp:RequiredFieldValidator>
+            </div>
+            <div class="d-flex justify-content-center">
+                <asp:Button ID="btnAddProd" CssClass="btn btn-primary" Width="100%" runat="server" Text="Add" ValidationGroup="addprop" />
+            </div>
+        </div>
+    </div>
 
     <div id="popup-container-edit" class="bg-white p-5 border-1 shadow w-50">
         <div class="container">
@@ -144,7 +204,23 @@
         </div>
     </div>
      <script type="text/javascript">
-       
+         //-------------------------Add Product
+         var showPopupBtn = document.getElementById('btn-addProd');
+         var closePopupBtn = document.getElementById('btn-closeProd');
+
+         var popupContainer = document.getElementById('popup-container');
+         var closePopup = document.getElementById('btn-closeReport');
+         var popupReport = document.getElementById('report-popup');
+
+         showPopupBtn.addEventListener('click', function () {
+             popupContainer.style.display = 'block';
+         });
+
+         closePopupBtn.addEventListener('click', function () {
+             popupContainer.style.display = 'none';
+         });
+
+        //-------------------------Edit Product
         var btnEditClose = document.getElementById('btn-closeEdit');
         var editPanel = document.getElementById('popup-container-edit');
 
