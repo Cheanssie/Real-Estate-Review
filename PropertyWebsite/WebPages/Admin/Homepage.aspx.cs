@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.IO;
 
 namespace PropertyWebsite.WebPages.Admin
 {
@@ -73,6 +74,43 @@ namespace PropertyWebsite.WebPages.Admin
             }
             conn.Close();
 
+        }
+
+        protected void btnAddProp_Click(object sender, EventArgs e)
+        {
+            string propName = txtPropName.Text;
+            string propAddress = txtPropAddress.Text;
+            string propCategory = ddlPropCategory.SelectedValue;
+            string propArea = ddlPropArea.SelectedValue;
+            string propDesc = txtPropDesc.Text;
+            float propPrice = 0;
+            float.TryParse(txtPropPrice.Text, out propPrice);
+            float propEPrice = 0;
+            float.TryParse(txtPropEPrice.Text, out propEPrice);
+            string imgPath = "../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuProp.FileName);
+            fuProp.SaveAs(Server.MapPath("../img/PropertyImg/") + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuProp.FileName));
+
+            cmd = new SqlCommand("INSERT INTO Property VALUES(@propName, @propAddress, @category, @area,  @description, @startPrice, @endPrice)", conn);
+            cmd.Parameters.AddWithValue("@prodName", propName);
+            cmd.Parameters.AddWithValue("@propAddress", propAddress);
+            cmd.Parameters.AddWithValue("@category", propCategory);
+            cmd.Parameters.AddWithValue("@area", propArea);
+            cmd.Parameters.AddWithValue("@description", propDesc);
+            cmd.Parameters.AddWithValue("@startPrice", propPrice);
+            cmd.Parameters.AddWithValue("@endPrice", propEPrice);
+
+            //cmd = new SqlCommand("INSERT INTO PropertyImg VALUES(@url, SCOPE_IDENTITY())", conn);
+            //cmd.Parameters.AddWithValue("@url", imgPath);
+
+            conn.Open();
+            if (cmd.ExecuteNonQuery() != 0)
+            {
+                GridView1.DataBind();
+                string script = string.Format("openPopupMsg('{0}');", "Property added successfully");
+                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
+            }
+
+            conn.Close();
         }
     }
 }

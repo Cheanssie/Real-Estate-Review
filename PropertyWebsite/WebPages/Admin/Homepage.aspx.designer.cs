@@ -150,40 +150,40 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.DropDownList ddlPropCategory;
 
         /// <summary>
-        /// DropDownList1 control.
+        /// ddlPropArea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPropArea;
 
         /// <summary>
-        /// fuProd control.
+        /// fuProp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuProd;
+        protected global::System.Web.UI.WebControls.FileUpload fuProp;
 
         /// <summary>
-        /// rfvProdImg control.
+        /// rfvPropImg control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProdImg;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPropImg;
 
         /// <summary>
-        /// btnAddProd control.
+        /// btnAddProp control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddProd;
+        protected global::System.Web.UI.WebControls.Button btnAddProp;
 
         /// <summary>
         /// txtEditPropName control.

@@ -38,7 +38,7 @@
                     <input type="text" id="txtSearch" class="form-control text-black" title="Search by Property Name" placeholder="Search" />
                 </div>
                 <div class="text-end">
-                    <button id="btn-addProd" class="btn btn-primary" type="button">Add Property</button>
+                    <button id="btn-addProp" class="btn btn-primary" type="button">Add Property</button>
                 </div>
             </div>
                 <hr />
@@ -57,7 +57,7 @@
                     VALUES (@propId, @propName, @propAddress, @category, @area, @description, @startPrice, @endPrice)" 
                     OldValuesParameterFormatString="original_{0}"
                     
-                   UpdateCommand="UPDATE [Property] SET [propName] = @propName, [propAddress] = @propAddress, [category] = @category, 
+                    UpdateCommand="UPDATE [Property] SET [propName] = @propName, [propAddress] = @propAddress, [category] = @category, 
                     [area] = @area, [description] = @description, [startPrice] = @startPrice, [endPrice] = @endPrice
                     WHERE [propId] = @original_propId AND [propName] = @original_propName AND [propAddress] = @original_propAddress AND
                     [category] = @original_category AND [area] = @original_area AND [description] = @original_description AND
@@ -141,13 +141,13 @@
                     <p class="fs-3"><b>Add Property</b></p>
                 </div>
                 <div class="col-2 text-end">
-                    <button id="btn-closeProd" type="button" class="border-0 bg-transparent btn-close"></button>
+                    <button id="btn-closeProp" type="button" class="border-0 bg-transparent btn-close"></button>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="form-group col">
                     <label class="form-label">Property Name</label>
-                    <asp:TextBox ID="txtPropName" CssClass="form-control" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:TextBox ID="txtPropName" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="tfv" runat="server" ErrorMessage="Please fill in the property name" ControlToValidate="txtPropName" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>              
             </div>
@@ -155,27 +155,27 @@
                 <div class="col">
                     <label class="form-label">Description</label><br />
                     <asp:TextBox ID="txtPropDesc" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="rfvPropDesc" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="rfvPropDesc" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label">Address</label><br />
                     <asp:TextBox ID="txtPropAddress" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtPropAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtPropAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
 
             <div class="row mt-3">
                 <div class="col">
                     <label class="form-label">Start Price</label>
-                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPropPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revPropPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col">
                     <label class="form-label">End Price</label>
-                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprod"></asp:TextBox>
+                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPropEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revPropEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
                 </div>
@@ -189,7 +189,7 @@
                 </div>
                 <div class="col">
                     <label class="form-label">Area</label>
-                    <asp:DropDownList ID="DropDownList1" CssClass="form-select" runat="server">
+                    <asp:DropDownList ID="ddlPropArea" CssClass="form-select" runat="server">
                         <asp:ListItem>Kuala Lumpur</asp:ListItem>
                         <asp:ListItem>Selangor</asp:ListItem>
                         <asp:ListItem>Malacca</asp:ListItem>
@@ -210,11 +210,11 @@
            
             <div class="row mt-3 mb-5">
                 <label class="form-label">Upload Image</label><br />
-                <asp:FileUpload ID="fuProd" runat="server" ValidationGroup="addprod" />
-                <asp:RequiredFieldValidator ID="rfvProdImg" runat="server" ErrorMessage="Please upload product image" ControlToValidate="fuProd" ForeColor="Red" ValidationGroup="addprod"></asp:RequiredFieldValidator>
+                <asp:FileUpload ID="fuProp" runat="server" ValidationGroup="addprop" />
+                <asp:RequiredFieldValidator ID="rfvPropImg" runat="server" ErrorMessage="Please upload property image" ControlToValidate="fuProp" ForeColor="Red" ValidationGroup="addprop"></asp:RequiredFieldValidator>
             </div>
             <div class="d-flex justify-content-center">
-                <asp:Button ID="btnAddProd" CssClass="btn btn-primary" Width="100%" runat="server" Text="Add" ValidationGroup="addprop" />
+                <asp:Button ID="btnAddProp" CssClass="btn btn-primary" Width="100%" runat="server" Text="Add" OnClick="btnAddProp_Click" ValidationGroup="addprop"/>
             </div>
         </div>
     </div>
@@ -223,7 +223,7 @@
         <div class="container">
             <div class="row mb-2">
                 <div class="col-10">
-                    <p class="fs-3"><b>Edit Product</b></p>
+                    <p class="fs-3"><b>Edit Propuct</b></p>
                 </div>
                 <div class="col-2 text-end">
                     <button id="btn-closeEdit" type="button" class="border-0 bg-transparent btn-close"></button>
@@ -244,14 +244,14 @@
                 <div class="col">
                     <label class="form-label">Description</label><br />
                     <asp:TextBox ID="txtEditPropDesc" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtEditPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtEditPropDesc" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label">Address</label><br />
                     <asp:TextBox ID="txtEditAddress" CssClass="form-control" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please fill in the product description" ControlToValidate="txtEditAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Please fill in the property description" ControlToValidate="txtEditAddress" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                 </div>
             </div>
             
@@ -306,9 +306,9 @@
         </div>
     </div>
      <script type="text/javascript">
-         //-------------------------Add Product
-         var showPopupBtn = document.getElementById('btn-addProd');
-         var closePopupBtn = document.getElementById('btn-closeProd');
+         //-------------------------Add Propuct
+         var showPopupBtn = document.getElementById('btn-addProp');
+         var closePopupBtn = document.getElementById('btn-closeProp');
 
          var popupContainer = document.getElementById('popup-container');
          var closePopup = document.getElementById('btn-closeReport');
@@ -322,7 +322,7 @@
              popupContainer.style.display = 'none';
          });
 
-        //-------------------------Edit Product
+        //-------------------------Edit Propuct
         var btnEditClose = document.getElementById('btn-closeEdit');
         var editPanel = document.getElementById('popup-container-edit');
 
@@ -345,8 +345,8 @@
             deletePanel.style.display = 'none';
         });
 
-        var prodNav = document.getElementById('product');
-        prodNav.classList.add('active');
+        var propNav = document.getElementById('property');
+        propNav.classList.add('active');
 
 
        
