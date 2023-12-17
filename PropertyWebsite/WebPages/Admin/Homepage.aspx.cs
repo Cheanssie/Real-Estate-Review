@@ -87,8 +87,8 @@ namespace PropertyWebsite.WebPages.Admin
             float.TryParse(txtPropPrice.Text, out propPrice);
             float propEPrice = 0;
             float.TryParse(txtPropEPrice.Text, out propEPrice);
-            string imgPath = "../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuProp.FileName);
-            fuProp.SaveAs(Server.MapPath("../img/PropertyImg/") + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuProp.FileName));
+            string imgPath = "../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName);
+            fuAddProp.SaveAs(Server.MapPath("../img/PropertyImg/") + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName));
 
             cmd = new SqlCommand("INSERT INTO Property VALUES(@propName, @propAddress, @category, @area,  @description, @startPrice, @endPrice)", conn);
             cmd.Parameters.AddWithValue("@prodName", propName);

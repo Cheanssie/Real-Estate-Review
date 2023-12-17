@@ -24,6 +24,42 @@
             text-decoration: none;
             color: inherit;
         }
+
+        #imageContainer {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .imageSlot {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            overflow: hidden;
+        }
+
+        .removeButton {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: transparent;
+            border: 0;
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .removeButton::before {
+            content: '\00d7'; /* Unicode for the "x" character */
+            font-size: 20px;
+            color: #000; /* Set the color you desire */
+        }
+
+        .modal-content {
+            overflow: auto; /* Enable scrollbar when content overflows */
+            max-height: 80vh; /* Set maximum height to 80% of the viewport height */
+        }
+
     </style>
 </asp:Content>
 
@@ -134,7 +170,7 @@
             <% } %>
         </div>
 
-    <div id="popup-container" class="bg-white p-5 border-1 shadow w-50">
+    <div id="popup-container" class="bg-white p-5 border-1 shadow w-50 modal-content">
         <div class="container">
             <div class="row mb-2">
                 <div class="col-10">
@@ -207,11 +243,17 @@
                     </asp:DropDownList>
                 </div>
             </div>
-           
-            <div class="row mt-3 mb-5">
-                <label class="form-label">Upload Image</label><br />
-                <asp:FileUpload ID="fuProp" runat="server" ValidationGroup="addprop" />
-                <asp:RequiredFieldValidator ID="rfvPropImg" runat="server" ErrorMessage="Please upload property image" ControlToValidate="fuProp" ForeColor="Red" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+            <div id="imageContainer" class="mt-3">
+                <!-- Existing images will be displayed here -->
+            </div>
+            <div class="row d-flex justify-content-between mb-4 mt-3">
+                <div class="col">
+                    <asp:FileUpload ID="fuAddProp" runat="server" ValidationGroup="addprop"  ClientIDMode="Static"/>
+                    <asp:RequiredFieldValidator ID="rfvPropImg" runat="server" ErrorMessage="Please upload property image" ControlToValidate="fuAddProp" ForeColor="Red" ValidationGroup="addprop"></asp:RequiredFieldValidator>
+                </div>
+                <div class="col text-end">
+                    <a class="link-underline" onclick="addImage()">Add Image</a>
+                </div>
             </div>
             <div class="d-flex justify-content-center">
                 <asp:Button ID="btnAddProp" CssClass="btn btn-primary" Width="100%" runat="server" Text="Add" OnClick="btnAddProp_Click" ValidationGroup="addprop"/>
@@ -219,7 +261,7 @@
         </div>
     </div>
 
-    <div id="popup-container-edit" class="bg-white p-5 border-1 shadow w-50">
+    <div id="popup-container-edit" class="bg-white p-5 border-1 shadow w-50 modal-content">
         <div class="container">
             <div class="row mb-2">
                 <div class="col-10">
@@ -296,9 +338,16 @@
                     </asp:DropDownList>
                 </div>
             </div>
-            <div class="row mt-3 mb-5">
-                <label class="form-label">Upload Image</label><br />
-                <asp:FileUpload ID="fuEditImg" runat="server" ValidationGroup="editprop" />
+            <div id="editImageContainer" class="mt-3">
+                <!-- Existing images will be displayed here -->
+            </div>
+            <div class="row d-flex justify-content-between mb-4 mt-3">
+                <div class="col">
+                    <asp:FileUpload ID="fuEditImg" runat="server" ValidationGroup="editprop" ClientIDMode="Static" />
+                </div>
+                <div class="col text-end">
+                    <a class="link-underline" onclick="editImage()">Add Image</a>
+                </div>
             </div>
             <div class="d-flex justify-content-center">
                 <asp:Button ID="btnEditSubmit" CssClass="btn btn-primary" Width="100%" runat="server" Text="Update" ValidationGroup="editprop" OnClick="btnEditSubmit_Click" />
@@ -348,8 +397,87 @@
         var propNav = document.getElementById('property');
         propNav.classList.add('active');
 
+        function addImage() {
+            const container = document.getElementById("imageContainer");
+            const input = document.getElementById("fuAddProp");
 
-       
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    // Create image slot
+                    const imageSlot = document.createElement("div");
+                    imageSlot.className = "imageSlot";
+
+                    // Create remove button
+                    const removeButton = document.createElement("button");
+                    removeButton.className = "removeButton";
+                    removeButton.onclick = function () {
+                        // Remove the image slot when the button is clicked
+                        container.removeChild(imageSlot);
+                    };
+
+                    // Create image element
+                    const image = document.createElement("img");
+                    image.src = e.target.result;
+
+                    // Append image and remove button to the slot
+                    imageSlot.appendChild(removeButton);
+                    imageSlot.appendChild(image);
+
+                    // Append slot to the container
+                    container.appendChild(imageSlot);
+
+                    // Reset input value
+                    input.value = "";
+                };
+
+                // Read the image file as a data URL
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function editImage() {
+    const container = document.getElementById("editImageContainer");
+    const input = document.getElementById("fuEditImg");
+
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            // Create image slot
+            const imageSlot = document.createElement("div");
+            imageSlot.className = "imageSlot";
+
+            // Create remove button
+            const removeButton = document.createElement("button");
+            removeButton.className = "removeButton";
+            removeButton.onclick = function () {
+                // Remove the image slot when the button is clicked
+                container.removeChild(imageSlot);
+            };
+
+            // Create image element
+            const image = document.createElement("img");
+            image.src = e.target.result;
+
+            // Append image and remove button to the slot
+            imageSlot.appendChild(removeButton);
+            imageSlot.appendChild(image);
+
+            // Append slot to the container
+            container.appendChild(imageSlot);
+
+            // Reset input value
+            input.value = "";
+        };
+
+        // Read the image file as a data URL
+        reader.readAsDataURL(file);
+    }
+}
      </script>
 
 
