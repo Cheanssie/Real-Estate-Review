@@ -13,5 +13,14 @@ namespace PropertyWebsite.WebPages.Admin
         {
 
         }
+
+        protected void GridView1_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if(e.CommandName == "editCustom")
+            {
+                ClientScript.RegisterStartupScript(GetType(), "Javascript", "javascript:openEditPanel(); ", true);
+
+            }
+        }
     }
 }
