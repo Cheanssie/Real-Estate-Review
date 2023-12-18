@@ -39,7 +39,7 @@ namespace PropertyWebsite.WebPages.Master
                         readUser.Close();
                         if (role.ToLower() == "admin")
                         {
-                            Response.Redirect(HttpContext.Current.Request.ApplicationPath + "AdminPage/Dashboard.aspx");
+                            Response.Redirect(HttpContext.Current.Request.ApplicationPath + "WebPages/Admin/Homepage.aspx");
                         }
                         else
                         {
