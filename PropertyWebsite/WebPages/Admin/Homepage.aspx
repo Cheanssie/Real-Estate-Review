@@ -193,13 +193,13 @@
             <div class="row mt-3">
                 <div class="col">
                     <label class="form-label">Start Price</label>
-                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprop"></asp:TextBox>
+                    <asp:TextBox ID="txtPropPrice" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPropPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revPropPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col">
                     <label class="form-label">End Price</label>
-                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="addprop"></asp:TextBox>
+                    <asp:TextBox ID="txtPropEPrice" CssClass="form-control" runat="server" ValidationGroup="addprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvPropEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="addprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revPropEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtPropEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="addprop"></asp:RegularExpressionValidator>
                 </div>
@@ -283,13 +283,13 @@
             <div class="row mt-3">
                 <div class="col">
                     <label class="form-label">Start Price</label>
-                    <asp:TextBox ID="txtEditPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="editprop"></asp:TextBox>
+                    <asp:TextBox ID="txtEditPrice" CssClass="form-control" runat="server" ValidationGroup="editprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvEditPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtEditPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="editprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revEditPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtEditPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="editprop"></asp:RegularExpressionValidator>
                 </div>
                 <div class="col">
                     <label class="form-label">End Price</label>
-                    <asp:TextBox ID="txtEditEPrice" CssClass="form-control" Width="50%" runat="server" ValidationGroup="editprop"></asp:TextBox>
+                    <asp:TextBox ID="txtEditEPrice" CssClass="form-control" runat="server" ValidationGroup="editprop"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="rfvEditEPrice" runat="server" ErrorMessage="Please fill in the property price" ControlToValidate="txtEditEPrice" ForeColor="Red" Display="Dynamic" ValidationGroup="editprop"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator ID="revEditEPrice" runat="server" ErrorMessage="Invalid Price" ControlToValidate="txtEditEPrice" ForeColor="Red" Display="Dynamic" ValidationExpression="^\d+(\.\d{1,2})?$" ValidationGroup="editprop"></asp:RegularExpressionValidator>
                 </div>
