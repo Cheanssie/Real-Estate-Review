@@ -80,6 +80,7 @@
                  <asp:Parameter Name="original_img" />
                  <asp:Parameter Name="original_role" Type="String"></asp:Parameter>
              </DeleteParameters>
+
              <InsertParameters>
                  <asp:Parameter Name="userid" Type="String"></asp:Parameter>
                  <asp:Parameter Name="username" Type="String"></asp:Parameter>

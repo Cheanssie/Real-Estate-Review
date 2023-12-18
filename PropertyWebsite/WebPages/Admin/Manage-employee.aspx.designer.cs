@@ -11,7 +11,7 @@ namespace PropertyWebsite.WebPages
 {
 
 
-    public partial class Manage-employee {
+    public partial class Manage_employee {
         
         /// <summary>
         /// SqlDataSource1 control.

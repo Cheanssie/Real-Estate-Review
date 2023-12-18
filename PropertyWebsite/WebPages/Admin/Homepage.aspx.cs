@@ -78,21 +78,20 @@ namespace PropertyWebsite.WebPages.Admin
 
         protected void btnAddProp_Click(object sender, EventArgs e)
         {
-            string propId = txtEditPropId.Text;
-            string propName = txtEditPropName.Text;
-            string propAddress = txtEditAddress.Text;
-            string propDesc = txtEditPropDesc.Text;
+            string propName = txtPropName.Text;
+            string propDesc = txtPropDesc.Text;
+            string propAddress = txtPropAddress.Text;
             float propPrice, propEPrice;
-            float.TryParse(txtEditPrice.Text, out propPrice);
-            float.TryParse(txtEditEPrice.Text, out propEPrice);
-            string propCategory = ddlEditPropCategory.SelectedValue;
-            string propArea = ddlEditPropArea.SelectedValue;
+            float.TryParse(txtPropPrice.Text, out propPrice);
+            float.TryParse(txtPropEPrice.Text, out propEPrice);
+            string propCategory = ddlPropCategory.SelectedValue;
+            string propArea = ddlPropArea.SelectedValue;
             string imgPath = "../../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName);
             fuAddProp.SaveAs(Server.MapPath("../../Resources/PropertyImg/") + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss") + Path.GetExtension(fuAddProp.FileName));
             
             conn.Open();
             cmd = new SqlCommand("INSERT INTO Property VALUES(@propName, @propAddress, @category, @area,  @description, @startPrice, @endPrice)", conn);
-            cmd.Parameters.AddWithValue("@prodName", propName);
+            cmd.Parameters.AddWithValue("@propName", propName);
             cmd.Parameters.AddWithValue("@propAddress", propAddress);
             cmd.Parameters.AddWithValue("@category", propCategory);
             cmd.Parameters.AddWithValue("@area", propArea);
@@ -100,8 +99,12 @@ namespace PropertyWebsite.WebPages.Admin
             cmd.Parameters.AddWithValue("@startPrice", propPrice);
             cmd.Parameters.AddWithValue("@endPrice", propEPrice);
 
-            //cmd = new SqlCommand("INSERT INTO PropertyImg VALUES(@url, SCOPE_IDENTITY())", conn);
-            //cmd.Parameters.AddWithValue("@url", imgPath);
+            cmd = new SqlCommand("SELECT TOP 1 Pid FROM Property ORDER BY Pid DESC", conn);
+            var latestPid = cmd.ExecuteScalar();
+
+            cmd = new SqlCommand("INSERT INTO PropertyImg VALUES(@url, @Pid)", conn);
+            cmd.Parameters.AddWithValue("@url", imgPath);
+            cmd.Parameters.AddWithValue("@Pid", latestPid);
 
             if (cmd.ExecuteNonQuery() != 0)
             {
@@ -117,5 +120,6 @@ namespace PropertyWebsite.WebPages.Admin
 
             conn.Close();
         }
+
     }
 }
