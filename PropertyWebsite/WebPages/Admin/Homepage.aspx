@@ -71,7 +71,9 @@
                 { %>
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' 
 
-                    SelectCommand="SELECT * FROM [Property]"
+                    SelectCommand="SELECT * FROM [Property] WHERE (propId LIKE '%' + @key + '%' OR propName LIKE '%' + @key + '%' OR 
+                    propAddress LIKE '%' + @key + '%' OR category LIKE '%' + @key + '%' OR area LIKE '%' + @key + '%' OR
+                    description LIKE '%' + @key + '%' OR startPrice LIKE '%' + @key + '%' OR endPrice LIKE '%' + @key + '%')"
             
                     DeleteCommand="DELETE FROM [Property] WHERE [propId] = @original_propId AND [propName] = @original_propName AND 
                     [propAddress] = @original_propAddress AND [category] = @original_category AND [area] = @original_area AND 
@@ -108,6 +110,10 @@
                     <asp:Parameter Name="startPrice" Type="Double"></asp:Parameter>
                     <asp:Parameter Name="endPrice" Type="Double"></asp:Parameter>
                 </InsertParameters>
+
+                <SelectParameters>
+                    <asp:QueryStringParameter QueryStringField="searchKey" DefaultValue="%" Name="key"></asp:QueryStringParameter>
+                </SelectParameters>
 
                 <UpdateParameters>
                     <asp:Parameter Name="propName" Type="String"></asp:Parameter>
@@ -406,7 +412,26 @@
         var propNav = document.getElementById('property');
         propNav.classList.add('active');
 
-       
+         $(document).ready(function () {
+             var queryString = window.location.search;
+
+             // create a URLSearchParams object
+             var params = new URLSearchParams(queryString);
+
+             // get the value of the "param" parameter
+             var paramValue = params.get("searchKey");
+
+             // display the value in an alert box
+             $("#txtSearch").val(paramValue);
+         });
+
+         $("#txtSearch").keydown(function (event) {
+             if (event.keyCode == 13) {
+                 event.preventDefault();
+                 window.location.href = "Homepage.aspx?searchKey=" + $("#txtSearch").val();
+             }
+         });
+
      </script>
 
 

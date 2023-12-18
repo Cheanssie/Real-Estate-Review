@@ -199,7 +199,7 @@
                     $("#txtSearch").keydown(function (event) {
                         if (event.keyCode == 13) {
                             event.preventDefault();
-                            window.location.href = "Employee.aspx?searchKey=" + $("#txtSearch").val();
+                            window.location.href = "Manage-employee.aspx?searchKey=" + $("#txtSearch").val();
                         }
                     });
             </script>
