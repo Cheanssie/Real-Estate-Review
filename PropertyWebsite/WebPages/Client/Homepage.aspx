@@ -176,7 +176,7 @@
     <!-- Carousel Slider End -->
 
     <!-- Search Section Begin -->
-    <div class="card mx-auto w-50 shadow py-4" style="margin-top: -30px; background-color: rgb(255 255 255 / 0.70); min-width: 700px">
+    <div class="card mx-auto w-50 shadow py-4" style="margin-top: -30px; background-color: rgb(255 255 255 / 0.70);">
         <div class="card-body">
             <div class="col w-75 mx-auto">
                 <div class="input-group" style="height: 30px;">

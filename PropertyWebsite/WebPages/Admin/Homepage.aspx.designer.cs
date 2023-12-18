@@ -213,6 +213,15 @@ namespace PropertyWebsite.WebPages.Admin
         protected global::System.Web.UI.WebControls.TextBox txtEditPropId;
 
         /// <summary>
+        /// txtEditPid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEditPid;
+
+        /// <summary>
         /// txtEditPropDesc control.
         /// </summary>
         /// <remarks>
@@ -319,6 +328,24 @@ namespace PropertyWebsite.WebPages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlEditPropArea;
+
+        /// <summary>
+        /// rptExistingImages control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptExistingImages;
+
+        /// <summary>
+        /// SqlDataSource2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource2;
 
         /// <summary>
         /// fuEditImg control.

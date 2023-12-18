@@ -2,63 +2,51 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <style>
-        .form-control {
-            background: white;
-        }
+         .form-control {
+             background: white;
+         }
 
-            .form-control:focus {
-                background: white;
-                color: black;
-            }
+             .form-control:focus {
+                 background: white;
+                 color: black;
+             }
 
-        #popup-container, #popup-container-edit, #popup-container-delete, #report-popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999;
-            display: none;
-        }
+         #popup-container, #popup-container-edit, #popup-container-delete, #report-popup {
+             position: fixed;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             z-index: 9999;
+             display: none;
+         }
 
-        .gridview th a {
-            text-decoration: none;
-            color: inherit;
-        }
+         .gridview th a {
+             text-decoration: none;
+             color: inherit;
+         }
 
-        #imageContainer {
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-        }
+         #imageContainer {
+             position: relative;
+             display: flex;
+             flex-wrap: wrap;
+             margin: 5px;
+         }
 
-        .imageSlot {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 10px;
-            overflow: hidden;
-        }
 
-        .removeButton {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: transparent;
-            border: 0;
-            padding: 0;
-            cursor: pointer;
-        }
+         .image-slot {
+             display: inline-block;
+             margin: 10px; 
+         }
 
-        .removeButton::before {
-            content: '\00d7'; /* Unicode for the "x" character */
-            font-size: 20px;
-            color: #000; /* Set the color you desire */
-        }
+         .small-image {
+             width: 100px; 
+             height: auto;
+         }
 
-        .modal-content {
-            overflow: auto; /* Enable scrollbar when content overflows */
-            max-height: 80vh; /* Set maximum height to 80% of the viewport height */
-        }
+         .modal-content {
+             overflow: auto; 
+             max-height: 80vh; 
+         }
 
     </style>
 </asp:Content>
@@ -74,7 +62,7 @@
                     <input type="text" id="txtSearch" class="form-control text-black" title="Search by Property Name" placeholder="Search" />
                 </div>
                 <div class="text-end">
-                    <button id="btn-addProp" class="btn btn-primary" type="button">Add Property</button>
+                    <button id="btn-addProp" class="btn btn-dark" type="button">Add Property</button>
                 </div>
             </div>
                 <hr />
@@ -245,15 +233,12 @@
             </div>
             <div class="row d-flex justify-content-between mb-4 mt-3">
                 <div class="col">
-                    <asp:FileUpload ID="fuAddProp" runat="server" ValidationGroup="addprop"  ClientIDMode="Static" AllowMultiple="true"/>
+                    <asp:FileUpload ID="fuAddProp" runat="server" CssClass="form-control" ValidationGroup="addprop"  ClientIDMode="Static" AllowMultiple="true"/>
                     <asp:RequiredFieldValidator ID="rfvPropImg" runat="server" ErrorMessage="Please upload property image" ControlToValidate="fuAddProp" ForeColor="Red" ValidationGroup="addprop"></asp:RequiredFieldValidator>
-                </div>
-                <div class="col text-end">
-                    <a class="link-underline" onclick="addImage()">Add Image</a>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <asp:Button ID="btnAddProp" CssClass="btn btn-primary" Width="100%" runat="server" Text="Add" OnClick="btnAddProp_Click" ValidationGroup="addprop"/>
+                <asp:Button ID="btnAddProp" CssClass="btn btn-dark" Width="100%" runat="server" Text="Add" OnClick="btnAddProp_Click" ValidationGroup="addprop"/>
             </div>
         </div>
     </div>
@@ -277,6 +262,7 @@
                 <div class="col-4">
                     <label class="form-label">Property ID</label>
                     <asp:TextBox ID="txtEditPropId" CssClass="form-control" runat="server" ValidationGroup="editprop" Enabled="false"></asp:TextBox>
+                    <asp:TextBox ID="txtEditPid" CssClass="form-control d-none" runat="server" ValidationGroup="editprop" Enabled="false"></asp:TextBox>
                 </div>
             </div>
             <div class="row mb-3">
@@ -335,16 +321,31 @@
                     </asp:DropDownList>
                 </div>
             </div>
+            <div id="imageContainer" class="mt-3">
+                <asp:Repeater ID="rptExistingImages" runat="server" DataSourceID="SqlDataSource2">
+                    <ItemTemplate>
+                        <div class="image-slot">
+                            <img src='<%# Eval("url") %>' alt="Existing Image" class="img-thumbnail small-image" />
+                            <asp:CheckBox ID="chkRemoveImage" runat="server" Text="Remove" />
+                            <asp:TextBox ID="txtImgId" CssClass="d-none" runat="server" Text='<%# Eval("imgId") %>'></asp:TextBox>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
+                <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT * FROM [PropertyImg] WHERE ([Pid] = @Pid)">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="txtEditPid" PropertyName="Text" Name="Pid" Type="Int32"></asp:ControlParameter>
+                    </SelectParameters>
+                </asp:SqlDataSource>
+            </div>
             <div class="row d-flex justify-content-between mb-4 mt-3">
-                <div class="col">
-                    <asp:FileUpload ID="fuEditImg" runat="server" ValidationGroup="editprop" ClientIDMode="Static" AllowMultiple="true"/>
-                </div>
-                <div class="col text-end">
-                    <a class="link-underline" onclick="editImage()">Add Image</a>
+                <div class="col form-group">
+                    <label for="fuEditImg" class="form-label">Upload Images</label>
+                    <asp:FileUpload ID="fuEditImg" CssClass="form-control" runat="server" ValidationGroup="editprop" ClientIDMode="Static" AllowMultiple="true" />
+                    <span class="text-info" style="font-size:small;">Select one or more images to upload</span>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
-                <asp:Button ID="btnEditSubmit" CssClass="btn btn-primary" Width="100%" runat="server" Text="Update" ValidationGroup="editprop" OnClick="btnEditSubmit_Click" />
+                <asp:Button ID="btnEditSubmit" CssClass="btn btn-dark" Width="100%" runat="server" Text="Update" ValidationGroup="editprop" OnClick="btnEditSubmit_Click" />
             </div>
         </div>
     </div>
@@ -356,9 +357,9 @@
             </div>
 
             <div class="container d-flex justify-content-center">
-                <button id="btn-closeDelete" class="btn btn-primary btn-light mx-2">Cancel</button>
+                <button id="btn-closeDelete" class="btn btn-light mx-2">Cancel</button>
                 <asp:TextBox ID="txtDeletePropId" CssClass="d-none" runat="server"></asp:TextBox>
-                <asp:Button ID="btnConfirmDelete" CssClass="btn btn-primary btn-danger mx-2" runat="server" Text="Confirm" OnClick="btnConfirmDelete_Click" />
+                <asp:Button ID="btnConfirmDelete" CssClass="btn btn-danger mx-2" runat="server" Text="Confirm" OnClick="btnConfirmDelete_Click" />
             </div>
         </div>
     </div>

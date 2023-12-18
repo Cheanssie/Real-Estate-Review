@@ -89,6 +89,18 @@
              max-height:300px;
              overflow:hidden scroll;
          }
+
+         #imgCarousel {
+            height: 400px; /* Set a fixed height for the carousel */
+            width: auto;
+            overflow: hidden; /* Hide overflow if images are larger */
+        }
+
+        .carousel-inner img {
+            width: 100%; /* Make images fill the entire width of the carousel item */
+            height: 100%; /* Make images fill the entire height of the carousel item */
+            object-fit: cover; /* Maintain aspect ratio while covering the entire item */
+        }
     </style>
 </asp:Content>
 
@@ -103,9 +115,11 @@
             <div class="col-md-6 d-flex align-items-center">
                 <div id="imgCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#imgCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#imgCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#imgCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <asp:Repeater ID="rptPropImgIndicators" runat="server" DataSourceID="SqlDataSource3">
+                            <ItemTemplate>
+                                <button type="button" data-bs-target="#imgCarousel" data-bs-slide-to='<%# Container.ItemIndex %>' class='<%# Container.ItemIndex == 0 ? "active" : "" %>' aria-label='<%# "Slide " + (Container.ItemIndex + 1) %>'></button>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </div>
                     <div class="carousel-inner">
                         <asp:Repeater ID="rptPropImg" runat="server" DataSourceID="SqlDataSource3">

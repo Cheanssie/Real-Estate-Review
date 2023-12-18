@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Data;
 
 namespace PropertyWebsite.WebPages.Admin
 {
@@ -29,8 +30,10 @@ namespace PropertyWebsite.WebPages.Admin
                 SqlDataReader readProperty = cmd.ExecuteReader();
                 while (readProperty.Read())
                 {
+                    txtEditPid.Text = readProperty["Pid"].ToString();
                     txtEditPropId.Text = readProperty["propId"].ToString();
                     txtEditPropName.Text = readProperty["propName"].ToString();
+                    txtEditAddress.Text = readProperty["propAddress"].ToString();
                     txtEditPropDesc.Text = readProperty["description"].ToString();
                     txtEditPrice.Text = readProperty["startPrice"].ToString();
                     txtEditEPrice.Text = readProperty["endPrice"].ToString();
@@ -50,7 +53,7 @@ namespace PropertyWebsite.WebPages.Admin
 
         protected void btnEditSubmit_Click(object sender, EventArgs e)
         {
-            string propId = txtEditPropId.Text;
+            string pId = txtEditPid.Text;
             string propName = txtEditPropName.Text;
             string propAddress = txtEditAddress.Text;
             string propDesc = txtEditPropDesc.Text;
@@ -61,7 +64,7 @@ namespace PropertyWebsite.WebPages.Admin
             string propArea = ddlEditPropArea.SelectedValue;
 
             conn.Open();
-            cmd = new SqlCommand("UPDATE Property SET propName = @propName, propAddress = @propAddress, description = @propDesc, category = @propCategory, area = @propArea, startPrice = @propPrice, endPrice = @propEPrice", conn);
+            cmd = new SqlCommand("UPDATE Property SET propName = @propName, propAddress = @propAddress, description = @propDesc, category = @propCategory, area = @propArea, startPrice = @propPrice, endPrice = @propEPrice WHERE Pid = @Pid", conn);
             cmd.Parameters.AddWithValue("@propName", propName);
             cmd.Parameters.AddWithValue("@propAddress", propAddress);
             cmd.Parameters.AddWithValue("@propDesc", propDesc);
@@ -69,10 +72,46 @@ namespace PropertyWebsite.WebPages.Admin
             cmd.Parameters.AddWithValue("@propArea", propArea);
             cmd.Parameters.AddWithValue("@propPrice", propPrice);
             cmd.Parameters.AddWithValue("@propEPrice", propEPrice);
+            cmd.Parameters.AddWithValue("@Pid", pId);
 
             if (cmd.ExecuteNonQuery() != 0)
             {
+
+                foreach (RepeaterItem item in rptExistingImages.Items)
+                {
+                    if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                    {
+                        CheckBox chkRemoveImage = (CheckBox)item.FindControl("chkRemoveImage");
+
+                        if (chkRemoveImage != null && chkRemoveImage.Checked)
+                        {
+                            TextBox txtImgId = (TextBox)item.FindControl("txtImgId");
+                            cmd = new SqlCommand("DELETE propertyImg WHERE imgId = @imgId", conn);
+                            cmd.Parameters.AddWithValue("@imgId", txtImgId.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+
+                if (fuEditImg.HasFiles)
+                {
+                    foreach (HttpPostedFile uploadedFile in fuEditImg.PostedFiles)
+                    {
+                        string fileName = Path.GetFileName(uploadedFile.FileName);
+                        string imgPath = "../../Resources/PropertyImg/" + DateTime.Now.ToString("dd-MM-yyyy-hh-mm-ss-fffffff") + Path.GetExtension(uploadedFile.FileName);
+
+                        // Save the image file
+                        uploadedFile.SaveAs(Server.MapPath(imgPath));
+
+                        // Create a new SqlCommand for each image insertion
+                        SqlCommand imgCmd = new SqlCommand("INSERT INTO PropertyImg (url, Pid) VALUES (@url, @Pid)", conn);
+                        imgCmd.Parameters.AddWithValue("@url", imgPath);
+                        imgCmd.Parameters.AddWithValue("@Pid", pId);
+                        imgCmd.ExecuteNonQuery();
+                    }
+                }
                 GridView1.DataBind();
+                rptExistingImages.DataBind();
                 string script = string.Format("openPopupMsg('{0}');", "Product updated successfully");
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
             }
@@ -140,13 +179,13 @@ namespace PropertyWebsite.WebPages.Admin
         protected void btnConfirmDelete_Click(object sender, EventArgs e)
         {
             conn.Open();
-            cmd = new SqlCommand("DELETE PropertyImg WHERE Pid = @Pid; SELECT SCOPE_IDENTITY();", conn);
+            cmd = new SqlCommand("DELETE PropertyImg WHERE Pid = @Pid", conn);
             cmd.Parameters.AddWithValue("@Pid", txtDeletePropId.Text);
 
 
             if (cmd.ExecuteNonQuery() != 0)
             {
-                cmd = new SqlCommand("DELETE Property WHERE Pid = @Pid;", conn);
+                cmd = new SqlCommand("DELETE Property WHERE Pid = @Pid", conn);
                 cmd.Parameters.AddWithValue("@Pid", txtDeletePropId.Text);
                 cmd.ExecuteNonQuery();
 
