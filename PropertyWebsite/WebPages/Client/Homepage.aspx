@@ -247,14 +247,13 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <div class="row justify-content-center owl-carousel owl-theme">
-
                             <asp:Repeater ID="rptProd" runat="server" DataSourceID="SqlDataSource1" OnItemCommand="rptProd_ItemCommand">
                                 <ItemTemplate>
                                     <div class="card-parent col" style="position: relative">
                                         <div class="card h-100 mx-auto mx-sm-auto" style="max-width: 18rem; min-width: 14rem;">
-                                            <img src="../../Resources/Img/carousel1.jpg" style="height: 150px;" class="card-img-top" alt="...">
+                                            <img src="<%# Eval("url") %>"" style="height: 150px;" class="card-img-top" alt="...">
                                             <div class="card-body">
-                                                <h5 class="card-title"><%# Eval("propName") %></h5>
+                                                <h5 class="card-title overflow-hidden"  style="max-height: 1.3em;"><%# Eval("propName") %></h5>
                                                 <p class="card-text p-category"><%# Eval("category") %></p>
                                                 <p class="card-text card-price position-relative">
                                                     <%# Eval("area") %><span class="card-text float-end position-absolute bottom-0 end-0" style="font-size: 12px;">From RM<%# Eval("startPrice") %></span></p>
@@ -266,7 +265,13 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT * FROM [Property]"></asp:SqlDataSource>
+                            <asp:SqlDataSource runat="server" ID="SqlDataSource1" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT *
+FROM Property P
+JOIN (
+    SELECT TOP 1 *
+    FROM PropertyImg PI
+) AS PI ON P.Pid = PI.Pid;
+"></asp:SqlDataSource>
                         </div>
                     </div>
                 </div>

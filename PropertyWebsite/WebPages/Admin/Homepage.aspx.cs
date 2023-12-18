@@ -76,23 +76,7 @@ namespace PropertyWebsite.WebPages.Admin
 
             if (cmd.ExecuteNonQuery() != 0)
             {
-
-                foreach (RepeaterItem item in rptExistingImages.Items)
-                {
-                    if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
-                    {
-                        CheckBox chkRemoveImage = (CheckBox)item.FindControl("chkRemoveImage");
-
-                        if (chkRemoveImage != null && chkRemoveImage.Checked)
-                        {
-                            TextBox txtImgId = (TextBox)item.FindControl("txtImgId");
-                            cmd = new SqlCommand("DELETE propertyImg WHERE imgId = @imgId", conn);
-                            cmd.Parameters.AddWithValue("@imgId", txtImgId.Text);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-                }
-
+                string updateMsg = "Product updated successfully";
                 if (fuEditImg.HasFiles)
                 {
                     foreach (HttpPostedFile uploadedFile in fuEditImg.PostedFiles)
@@ -110,9 +94,36 @@ namespace PropertyWebsite.WebPages.Admin
                         imgCmd.ExecuteNonQuery();
                     }
                 }
+
+                foreach (RepeaterItem item in rptExistingImages.Items)
+                {
+                    if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                    {
+                        CheckBox chkRemoveImage = (CheckBox)item.FindControl("chkRemoveImage");
+
+                        if (chkRemoveImage != null && chkRemoveImage.Checked)
+                        {
+                            cmd = new SqlCommand("SELECT COUNT(*) FROM PropertyImg WHERE Pid = @Pid", conn);
+                            cmd.Parameters.AddWithValue("@Pid", pId);
+                            int imgCount = (int)cmd.ExecuteScalar();
+                            if (imgCount > 1)
+                            {
+                                TextBox txtImgId = (TextBox)item.FindControl("txtImgId");
+                                cmd = new SqlCommand("DELETE propertyImg WHERE imgId = @imgId", conn);
+                                cmd.Parameters.AddWithValue("@imgId", txtImgId.Text);
+                                cmd.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                updateMsg = "Product updated successfully but at least one image is kept";
+                            }
+                            
+                        }
+                    }
+                }
                 GridView1.DataBind();
                 rptExistingImages.DataBind();
-                string script = string.Format("openPopupMsg('{0}');", "Product updated successfully");
+                string script = string.Format("openPopupMsg('{0}');", updateMsg);
                 ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
             }
             conn.Close();
