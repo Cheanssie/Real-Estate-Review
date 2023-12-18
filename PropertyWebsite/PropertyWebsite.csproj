@@ -132,6 +132,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="UserControl\ResetPassword.ascx" />
     <Content Include="Web.config" />
+    <Content Include="WebPages\Admin\Manage-employee.aspx" />
     <Content Include="WebPages\Admin\Homepage.aspx" />
     <Content Include="WebPages\APITester.aspx" />
     <Content Include="WebPages\Client\Homepage.aspx" />
@@ -158,6 +159,13 @@
     </Compile>
     <Compile Include="UserControl\ResetPassword.ascx.designer.cs">
       <DependentUpon>ResetPassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Admin\Manage-employee.aspx.cs">
+      <DependentUpon>Manage-employee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Admin\Manage-employee.aspx.designer.cs">
+      <DependentUpon>Manage-employee.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\Admin\Homepage.aspx.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
@@ -222,13 +230,6 @@
     <Compile Include="WebPages\Client\ResetPassword.aspx.designer.cs">
       <DependentUpon>ResetPassword.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebPages\Admin\Manage-employee.aspx.cs">
-      <DependentUpon>Manage-employee.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebPages\Admin\Manage-employee.aspx.designer.cs">
-      <DependentUpon>Manage-employee.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WebPages\Master\Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -280,7 +281,6 @@
     <Content Include="WebPages\Client\PropertyDetail.aspx" />
     <Content Include="WebPages\Client\Register.aspx" />
     <Content Include="WebPages\Client\ResetPassword.aspx" />
-    <Content Include="WebPages\Admin\Manage-employee.aspx" />
     <Content Include="WebPages\Master\Client.Master" />
     <Content Include="WebPages\Master\Admin.Master" />
   </ItemGroup>
