@@ -192,18 +192,20 @@ namespace PropertyWebsite.WebPages.Admin
             conn.Open();
             cmd = new SqlCommand("DELETE PropertyImg WHERE Pid = @Pid", conn);
             cmd.Parameters.AddWithValue("@Pid", txtDeletePropId.Text);
+            cmd.ExecuteNonQuery();
 
+            cmd = new SqlCommand("DELETE Review WHERE Pid = @Pid", conn);
+            cmd.Parameters.AddWithValue("@Pid", txtDeletePropId.Text);
+            cmd.ExecuteNonQuery();
 
-            if (cmd.ExecuteNonQuery() != 0)
-            {
-                cmd = new SqlCommand("DELETE Property WHERE Pid = @Pid", conn);
-                cmd.Parameters.AddWithValue("@Pid", txtDeletePropId.Text);
-                cmd.ExecuteNonQuery();
+            cmd = new SqlCommand("DELETE Property WHERE Pid = @Pid", conn);
+            cmd.Parameters.AddWithValue("@Pid", txtDeletePropId.Text);
+            cmd.ExecuteNonQuery();
 
-                GridView1.DataBind();
-                string script = string.Format("openPopupMsg('{0}');", "Product deleted successfully");
-                ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
-            }
+            GridView1.DataBind();
+            string script = string.Format("openPopupMsg('{0}');", "Product deleted successfully");
+            ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
+            
 
             conn.Close();
         }

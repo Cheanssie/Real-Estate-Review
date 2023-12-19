@@ -63,7 +63,7 @@
                          [img] = @original_img AND [role] = @original_role"
              
                          InsertCommand="INSERT INTO [Users] ([username], [email], [password], [status], [img], [role]) 
-                         VALUES (@userId, @username, @email, @password, @status, @img, @role)" 
+                         VALUES (@userId, @username, @email, @password, @status, @img, @role)"
                          OldValuesParameterFormatString="original_{0}" 
              
                          UpdateCommand="UPDATE [Users] SET [username] = @username, [email] = @email, [password] = @password, [status] = @status, 

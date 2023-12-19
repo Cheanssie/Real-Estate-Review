@@ -375,8 +375,6 @@
          var closePopupBtn = document.getElementById('btn-closeProp');
 
          var popupContainer = document.getElementById('popup-container');
-         var closePopup = document.getElementById('btn-closeReport');
-         var popupReport = document.getElementById('report-popup');
 
          showPopupBtn.addEventListener('click', function () {
              popupContainer.style.display = 'block';
@@ -386,17 +384,17 @@
              popupContainer.style.display = 'none';
          });
 
-        //-------------------------Edit Propuct
-        var btnEditClose = document.getElementById('btn-closeEdit');
-        var editPanel = document.getElementById('popup-container-edit');
+         //-------------------------Edit Propuct
+         var btnEditClose = document.getElementById('btn-closeEdit');
+         var editPanel = document.getElementById('popup-container-edit');
 
-        btnEditClose.addEventListener('click', function () {
-            editPanel.style.display = 'none';
-        });
+         btnEditClose.addEventListener('click', function () {
+             editPanel.style.display = 'none';
+         });
 
-        function openEditPanel() {
-            editPanel.style.display = 'block';
-        }
+         function openEditPanel() {
+             editPanel.style.display = 'block';
+         }
 
         var deletePanel = document.getElementById('popup-container-delete');
         var deletePanelCloseBtn = document.getElementById('btn-closeDelete');
@@ -409,9 +407,6 @@
             deletePanel.style.display = 'none';
         });
 
-        var propNav = document.getElementById('property');
-        propNav.classList.add('active');
-
          $(document).ready(function () {
              var queryString = window.location.search;
 
@@ -423,15 +418,14 @@
 
              // display the value in an alert box
              $("#txtSearch").val(paramValue);
-         });
 
-         $("#txtSearch").keydown(function (event) {
-             if (event.keyCode == 13) {
-                 event.preventDefault();
-                 window.location.href = "Homepage.aspx?searchKey=" + $("#txtSearch").val();
-             }
+             $("#txtSearch").keydown(function (event) {
+                 if (event.keyCode == 13) {
+                     event.preventDefault();
+                     window.location.href = "Homepage.aspx?searchKey=" + $("#txtSearch").val();
+                 }
+             });
          });
-
      </script>
 
 
