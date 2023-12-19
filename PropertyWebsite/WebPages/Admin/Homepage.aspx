@@ -59,7 +59,7 @@
                 </div>
                 <div class="col d-flex justify-content-end gap-2">
                 <div class="text-end">
-                    <input type="text" id="txtSearch" class="form-control text-black" title="Search by Property Name" placeholder="Search" />
+                    <input type="text" id="txtSearch" class="form-control text-black" title="Search" placeholder="Search by Property Name" />
                 </div>
                 <div class="text-end">
                     <button id="btn-addProp" class="btn btn-dark" type="button">Add Property</button>
@@ -69,21 +69,15 @@
             </div>
             <% if (GridView1.Rows.Count != 0)
                 { %>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' 
-
-                    SelectCommand="SELECT * FROM [Property] WHERE (propId LIKE '%' + @key + '%' OR propName LIKE '%' + @key + '%' OR 
-                    propAddress LIKE '%' + @key + '%' OR category LIKE '%' + @key + '%' OR area LIKE '%' + @key + '%' OR
-                    description LIKE '%' + @key + '%' OR startPrice LIKE '%' + @key + '%' OR endPrice LIKE '%' + @key + '%')"
-            
-                    DeleteCommand="DELETE FROM [Property] WHERE [propId] = @original_propId AND [propName] = @original_propName AND 
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString='<%$ ConnectionStrings:ConnectionString %>'
+            SelectCommand="SELECT * FROM [Property] WHERE (propName LIKE '%' + @key + '%' )"
+            DeleteCommand="DELETE FROM [Property] WHERE [propId] = @original_propId AND [propName] = @original_propName AND 
                     [propAddress] = @original_propAddress AND [category] = @original_category AND [area] = @original_area AND 
                     [description] = @original_description AND [startPrice] = @original_startPrice AND [endPrice] = @original_endPrice"
-                    
-                    InsertCommand="INSERT INTO [Property] ([propId], [propName], [propAddress], [category], [area], [description], [startPrice], [endPrice]) 
-                    VALUES (@propId, @propName, @propAddress, @category, @area, @description, @startPrice, @endPrice)" 
-                    OldValuesParameterFormatString="original_{0}"
-                    
-                    UpdateCommand="UPDATE [Property] SET [propName] = @propName, [propAddress] = @propAddress, [category] = @category, 
+            InsertCommand="INSERT INTO [Property] ([propId], [propName], [propAddress], [category], [area], [description], [startPrice], [endPrice]) 
+                    VALUES (@propId, @propName, @propAddress, @category, @area, @description, @startPrice, @endPrice)"
+            OldValuesParameterFormatString="original_{0}"
+            UpdateCommand="UPDATE [Property] SET [propName] = @propName, [propAddress] = @propAddress, [category] = @category, 
                     [area] = @area, [description] = @description, [startPrice] = @startPrice, [endPrice] = @endPrice
                     WHERE [propId] = @original_propId AND [propName] = @original_propName AND [propAddress] = @original_propAddress AND
                     [category] = @original_category AND [area] = @original_area AND [description] = @original_description AND
