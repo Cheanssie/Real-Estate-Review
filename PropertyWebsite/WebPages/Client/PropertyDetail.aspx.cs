@@ -25,6 +25,7 @@ namespace PropertyWebsite.WebPages.Client
             conn2 = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             if (!IsPostBack)
             {
+                ViewState["Pid"] = Request.QueryString["Pid"];
                 cmd = new SqlCommand("SELECT * FROM Property WHERE Pid = @Pid", conn);
                 cmd.Parameters.AddWithValue("@Pid", Request.QueryString["Pid"]);
 
@@ -46,6 +47,45 @@ namespace PropertyWebsite.WebPages.Client
                 conn.Close();
             }
 
+            if(ddlSentiment.SelectedValue == "*")
+            {
+                SqlDataSource2.SelectCommand = "SELECT * FROM [Review] R, [Users] U WHERE ([Pid] = @Pid) AND (U.Uid = R.Uid) ORDER BY datetime DESC";
+                SqlDataSource2.SelectParameters.Clear();
+                SqlDataSource2.SelectParameters.Add("Pid", ViewState["Pid"].ToString());
+                conn.Open();
+                cmd = new SqlCommand("SELECT COUNT(*) FROM Review R, Users U WHERE (Pid = @Pid) AND (U.Uid = R.Uid)", conn);
+                cmd.Parameters.AddWithValue("@Pid", ViewState["Pid"]);
+                if ((int)cmd.ExecuteScalar() == 0)
+                {
+                    reviewImg.Attributes["style"] = "display: block !important";
+                }
+                else
+                {
+                    reviewImg.Attributes["style"] = "display: none !important";
+                }
+                conn.Close();
+            }
+            else
+            {
+                SqlDataSource2.SelectCommand = "SELECT * FROM [Review] R, [Users] U WHERE ([Pid] = @Pid) AND (U.Uid = R.Uid) AND (sentiment = @sentiment) ORDER BY datetime DESC";
+                SqlDataSource2.SelectParameters.Clear();
+                SqlDataSource2.SelectParameters.Add("Pid", ViewState["Pid"].ToString());
+                SqlDataSource2.SelectParameters.Add("sentiment", ddlSentiment.SelectedValue);
+                conn.Open(); 
+                cmd = new SqlCommand("SELECT COUNT(*) FROM Review R, Users U WHERE (Pid = @Pid) AND (U.Uid = R.Uid) AND (sentiment = @sentiment)", conn);
+                cmd.Parameters.AddWithValue("@Pid", ViewState["Pid"]);
+                cmd.Parameters.AddWithValue("@sentiment", ddlSentiment.SelectedValue);
+                if((int)cmd.ExecuteScalar() == 0)
+                {
+                    reviewImg.Attributes["style"] = "display: block !important";
+                }
+                else
+                {
+                    reviewImg.Attributes["style"] = "display: none !important";
+                }
+                conn.Close();
+            }
+            rptReview.DataBind();
 
         }
 

@@ -130,7 +130,12 @@
 
         <asp:GridView ID="GridView1" CssClass="table table-hover table-bordered text-center" runat="server" HorizontalAlign="Center" DataSourceID="SqlDataSource1"  AutoGenerateColumns="False" DataKeyNames="Pid" Font-Size="Smaller" OnRowCommand="GridView1_RowCommand">
             <Columns>
-                <asp:BoundField DataField="propId" HeaderText="ID" SortExpression="propId" ReadOnly="True"></asp:BoundField>
+                <asp:TemplateField HeaderText="ID" ItemStyle-HorizontalAlign="Center" ItemStyle-VerticalAlign="Middle">
+                    <ItemTemplate>
+
+                        <a href="PropertyReviews.aspx?Pid=<%# Eval("Pid") %>"><%# Eval("propId") %></a>
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="propName" HeaderText="Name" SortExpression="propName"></asp:BoundField>
                 <asp:BoundField DataField="propAddress" HeaderText="Address" SortExpression="propAddress"></asp:BoundField>
                 <asp:BoundField DataField="category" ItemStyle-CssClass="maxwidth-col" HeaderText="Category" SortExpression="category" ItemStyle-HorizontalAlign="Justify"></asp:BoundField>

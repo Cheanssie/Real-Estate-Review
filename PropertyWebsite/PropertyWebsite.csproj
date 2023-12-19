@@ -122,6 +122,7 @@
     <Content Include="Resources\Img\carousel3.jpg" />
     <Content Include="Resources\Img\defaul-profile.jpeg" />
     <Content Include="Resources\Img\login-bg.jpg" />
+    <Content Include="Resources\Img\no-review.png" />
     <Content Include="Resources\Img\register-bg.svg" />
     <Content Include="Resources\Img\ResetPassword.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -134,6 +135,7 @@
     <Content Include="Web.config" />
     <Content Include="WebPages\Admin\Manage-employee.aspx" />
     <Content Include="WebPages\Admin\Homepage.aspx" />
+    <Content Include="WebPages\Admin\PropertyReviews.aspx" />
     <Content Include="WebPages\APITester.aspx" />
     <Content Include="WebPages\Client\Homepage.aspx" />
   </ItemGroup>
@@ -173,6 +175,13 @@
     </Compile>
     <Compile Include="WebPages\Admin\Homepage.aspx.designer.cs">
       <DependentUpon>Homepage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebPages\Admin\PropertyReviews.aspx.cs">
+      <DependentUpon>PropertyReviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebPages\Admin\PropertyReviews.aspx.designer.cs">
+      <DependentUpon>PropertyReviews.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebPages\APITester.aspx.cs">
       <DependentUpon>APITester.aspx</DependentUpon>

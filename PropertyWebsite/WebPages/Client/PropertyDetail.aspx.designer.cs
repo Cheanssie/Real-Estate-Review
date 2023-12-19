@@ -96,6 +96,15 @@ namespace PropertyWebsite.WebPages.Client
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl endPrice;
 
         /// <summary>
+        /// ddlSentiment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlSentiment;
+
+        /// <summary>
         /// rptReview control.
         /// </summary>
         /// <remarks>
@@ -103,6 +112,15 @@ namespace PropertyWebsite.WebPages.Client
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater rptReview;
+
+        /// <summary>
+        /// reviewImg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reviewImg;
 
         /// <summary>
         /// SqlDataSource2 control.
@@ -130,14 +148,5 @@ namespace PropertyWebsite.WebPages.Client
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnReview;
-
-        /// <summary>
-        /// btnConfirm control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnConfirm;
     }
 }

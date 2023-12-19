@@ -170,12 +170,22 @@
 
     <!-- Review Section -->
     <div class="container container-sm container-md container-xl m-auto">
-        <div>
-            <p class="text-left fs-2">Reviews</p>
+        <div class="row d-flex justify-content-between">
+            <div class="col">
+                <p class="text-left fs-2 mb-0">Reviews</p>
+            </div>
+            <div class="col d-flex my-auto justify-content-end">
+                <asp:DropDownList ID="ddlSentiment" class="form-select me-0" runat="server" style="width:150px; height:fit-content" AutoPostBack="True">
+                    <asp:ListItem Selected="True" Value="*">All Reviews</asp:ListItem>
+                    <asp:ListItem>Positive</asp:ListItem>
+                    <asp:ListItem>Neutral</asp:ListItem>
+                    <asp:ListItem>Negative</asp:ListItem>
+                </asp:DropDownList>
+            </div>
         </div>
-        <hr />
+        <hr class="m-1" />
         <div class="row m-4">
-            <div class="col-9 bg-light px-4 pt-4 pb-1">
+            <div id="review-box" class="col-9 bg-light px-4 pt-4 pb-1">
                 <div id="reviewBox" class="col">
                     <asp:Repeater ID="rptReview" runat="server" DataSourceID="SqlDataSource2">
                         <ItemTemplate>
@@ -195,51 +205,41 @@
                                     </div>
                                 </div>
                             </div>
-                        </ItemTemplate>
+                        </ItemTemplate>                       
                     </asp:Repeater>
+                   <div id="reviewImg" class="review-list" runat="server">
+                    <div class="d-flex justify-content-center">
+                        <div class="left my-5">
+                            <img src="../../Resources/Img/no-review.png" style="width: 200px; " />
+                        </div>
+                    </div>
+                </div>
 
-
-                    <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' SelectCommand="SELECT * FROM [Review] R, [Users] U WHERE ([Pid] = @Pid) AND (U.Uid = R.Uid) ORDER BY datetime DESC">
-                        <SelectParameters>
-                            <asp:QueryStringParameter QueryStringField="Pid" Name="Pid" Type="Int32"></asp:QueryStringParameter>
-                        </SelectParameters>
+                    <asp:SqlDataSource runat="server" ID="SqlDataSource2" ConnectionString='<%$ ConnectionStrings:ConnectionString %>' >
+                        
                     </asp:SqlDataSource>
                 </div>
-                <div class="mb-3 mt-3 input-group d-flex justify-content-center align-content-center">
-    <% if (Session["email"] == null)
-        {%>
-    <a class="text-dark" href="Login.aspx">Please login to review!</a>
-    <%}
-        else
-        { %>
-    <asp:TextBox ID="txtReview" runat="server" CssClass="ml-4 form-control" Style="border-radius: 15px 0 0 15px; height: 40px" placeholder="Comment Here"></asp:TextBox>
-    <div class="input-group-append">
-        <asp:LinkButton ID="btnReview" runat="server" CssClass="border-0 bg-black text-light btn btn-md" Style="border-radius: 0 15px 15px 0;" OnClick="LinkButton1_Click">
+                
+                <div class="mb-3 mt-3 input-group d-flex justify-content-center align-content-bottom">
+                    <% if (Session["email"] == null)
+                        {%>
+                    <a class="text-dark" href="Login.aspx">Please login to review!</a>
+                    <%}
+                    else
+                    { %>
+                    <asp:TextBox ID="txtReview" runat="server" CssClass="ml-4 form-control" Style="border-radius: 15px 0 0 15px; height: 40px" placeholder="Comment Here"></asp:TextBox>
+                    <div class="input-group-append">
+                        <asp:LinkButton ID="btnReview" runat="server" CssClass="border-0 bg-black text-light btn btn-md" Style="border-radius: 0 15px 15px 0;" OnClick="LinkButton1_Click">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
                 <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
             </svg>
-        </asp:LinkButton>
-    </div>
-    <%} %>
-</div>
-            </div>
-            <div class="col-3 bg-light px-4 pt-4 pb-1" style="width: 300px; height:auto">
-                    <canvas id="doughnutChart" ></canvas>
+                        </asp:LinkButton>
+                    </div>
+                    <%} %>
                 </div>
-        </div>
-    </div>
-
-
-
-        <div id="popup-container" class="bg-white p-5 border-1 shadow w-25">
-        <div class="container">
-            <div class="row mb-2">
-                <p class="text-center fs-4">Please login for adding to cart!</p>
             </div>
-
-            <div class="container d-flex justify-content-center">
-                <button id="btn-closeDelete" class="btn btn-primary btn-light mx-2">OK</button>
-                <asp:Button ID="btnConfirm" CssClass="btn btn-primary mx-2" runat="server" Text="Login"/>
+            <div id="reviewChart" class="col-3 bg-light px-4 pt-4 pb-1" style="width: 300px; height: auto">
+                <canvas id="doughnutChart"></canvas>
             </div>
         </div>
     </div>
@@ -255,8 +255,22 @@
             success: function (data) {
 
                 console.log(data);
+                
                 if (data.d != "") {
                     var ctxD = document.getElementById("doughnutChart").getContext('2d');
+                    if (data.d[0] == 0 && data.d[1] == 0 && data.d[2] == 0) {
+                        //ctxD.style.display = "none";
+                        document.getElementById('<%= reviewImg.ClientID%>').classList.add("d-block");
+                        document.getElementById("review-box").classList.remove("col-9");
+                        document.getElementById("review-box").classList.add("col");
+                        document.getElementById("reviewChart").style.display = "none";
+
+
+                    } else {
+                        document.getElementById('<%= reviewImg.ClientID%>').classList.add("d-none");
+                        document.getElementById("reviewBox").style.height = "200px";
+
+                    }
                     var myLineChart = new Chart(ctxD, {
                         type: 'doughnut',
                         data: {
