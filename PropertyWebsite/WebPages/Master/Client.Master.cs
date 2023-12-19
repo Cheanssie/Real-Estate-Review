@@ -53,7 +53,10 @@ namespace PropertyWebsite.WebPages.Master
                     }
                 }
                 conn.Close();
-
+                if (Application["Analyzer"] == null)
+                {
+                    Application["Analyzer"] = "lexiconMT";
+                }
             }
         }
     }

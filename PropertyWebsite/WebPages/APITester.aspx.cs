@@ -11,7 +11,7 @@ namespace PropertyWebsite.WebPages
 {
     public partial class APITester : System.Web.UI.Page
     {
-        string apiUrl = "http://44.221.94.142/lexiconMT/";
+        string apiUrl = "http://54.163.254.29/lexiconMT/";
         string passcode = "SentimentAPIfyp2023";
 
         protected void Page_Load(object sender, EventArgs e)

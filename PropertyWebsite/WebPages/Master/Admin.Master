@@ -68,48 +68,75 @@
     </asp:ContentPlaceHolder>
 </head>
 <body class="vh-100 overflow-hidden">
-    <div class="d-flex flex-row vh-100">
-        <div class="d-flex flex-column flex-shrink-0 p-2 text-white sidebar" style="width: 280px; height: 100%; background-color:black;">
-            <a href="../Admin/Homepage.aspx" class="d-flex justify-content-center align-items-end mt-2 mb-1 mb-md-0 text-white text-decoration-none">
-                <span class="sidebar-title fs-3 navbar-brand">iRoom</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li>
-                    <a href="../Admin/Homepage.aspx" id="homepage" class="nav-link text-white fs-6">
-                        <i class="bi bi-speedometer2" width="16" height="16"></i>
-                        <span class="sidebar-hide">Dashboard</span>
-                    </a>
-                </li>
-                <!--li>
+    <form id="form1" runat="server">
+
+        <div class="d-flex flex-row vh-100">
+            <div class="d-flex flex-column flex-shrink-0 p-2 text-white sidebar" style="width: 280px; height: 100%; background-color: black;">
+                <a href="../Admin/Homepage.aspx" class="d-flex justify-content-center align-items-end mt-2 mb-1 mb-md-0 text-white text-decoration-none">
+                    <span class="sidebar-title fs-3 navbar-brand">iRoom</span>
+                </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li>
+                        <a href="../Admin/Homepage.aspx" id="homepage" class="nav-link text-white fs-6">
+                            <i class="bi bi-speedometer2" width="16" height="16"></i>
+                            <span class="sidebar-hide">Dashboard</span>
+                        </a>
+                    </li>
+                    <!--li>
                     <a href="../Admin/Employee.aspx" id="employee" class="nav-link text-white fs-6">
                         <i class="bi bi-receipt" width="16" height="16"></i>
                         <span class="sidebar-hide">Users</span>
                     </a>
                 </li-->
-            </ul>
-            <hr>
-            <div id="arrow-container" class="dropdown d-flex justify-content-between">
-                <div class="dropdownUser">
-                    <a href="../Admin/Homepage.aspx" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <strong>iRoom Admin</strong>
-                    </a>
-                    <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
-                        <li><a class="dropdown-item" href="../Client/Logout.aspx">Logout</a></li>
-                    </ul>
+                </ul>
+                <hr>
+                <div id="arrow-container" class="dropdown d-flex justify-content-between">
+                    <div class="dropdownUser">
+                        <a href="../Admin/Homepage.aspx" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <strong>iRoom Admin</strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" href="../Client/Logout.aspx">Logout</a></li>
+                            <li>
+                                <% if (Application["Analyzer"].ToString() == "lexiconMT")
+                                    {%>
+                                <style>
+                                    .lex-analyzer, .lex-analyzer:hover {
+                                        background: rgba(76 255 0 / 0.54);
+                                    }
+                                </style>
+                                <%} %>
+                                <asp:Button CssClass="dropdown-item lex-analyzer" ID="btnLex" runat="server" Text="Switch to Lexicon Analyzer"
+                                    OnClick="btnLex_Click" />
+
+
+                            </li>
+                            <li>
+                                <% if (Application["Analyzer"].ToString() == "machineLearningMT")
+                                    {%>
+                                <style>
+                                    .ml-analyzer, .ml-analyzer:hover {
+                                        background: rgba(76 255 0 / 0.54);
+                                    }
+                                </style>
+                                <%} %>
+                                <asp:Button CssClass="dropdown-item ml-analyzer" ID="btnML" runat="server" Text="Switch to ML Analyzer" OnClick="btnML_Click" />
+
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="btn-shrink text-center" type="button"><span class="arrow bi bi-arrow-left"></span></button>
                 </div>
-                <button class="btn-shrink text-center"><span class="arrow bi bi-arrow-left"></span></button>
             </div>
-        </div>
-        <div class="vw-100">
-            <form id="form1" runat="server">
+            <div class="vw-100">
                 <div class="vh-100 px-3" style="height: 100%;">
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </form>
 
     <footer>
         <script type="text/javascript">

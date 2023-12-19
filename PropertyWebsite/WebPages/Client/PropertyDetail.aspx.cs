@@ -92,8 +92,9 @@ namespace PropertyWebsite.WebPages.Client
         protected async void LinkButton1_Click(object sender, EventArgs e)
         {
             string review = txtReview.Text;
-
-            string apiUrl = "http://44.221.94.142/lexiconMT/";
+            string apiUrl = "http://54.163.254.29/";
+            
+            apiUrl = apiUrl + Application["Analyzer"] + "/";
             string passcode = "SentimentAPIfyp2023";
             apiUrl += passcode + "?text=" + review;
 
@@ -149,18 +150,13 @@ namespace PropertyWebsite.WebPages.Client
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("Exception: " + ex.Message);
-                    cmd.Parameters.AddWithValue("@sentiment", DBNull.Value);
-                    int resultReview = cmd.ExecuteNonQuery();
-                    if (resultReview == 1)
-                    {
-                        rptReview.DataBind();
-                        cmd.Parameters.Clear();
-                        txtReview.Text = "";
-                    }
+                    //Response.Write("Exception: " + ex.Message);
+                    string script = string.Format("openPopupMsg('{0}');", "API Error, Please review later");
+                    ScriptManager.RegisterStartupScript(this.Page, Page.GetType(), "popupMsg", script, true);
+
                 }
-                
-                
+
+
 
                 readerUid.Close();
             }

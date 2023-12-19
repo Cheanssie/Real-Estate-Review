@@ -15,6 +15,20 @@ namespace PropertyWebsite.WebPages.Master
             {
                 Response.Redirect(HttpContext.Current.Request.ApplicationPath + "WebPages/Client/Homepage.aspx");
             }
+            if (Application["Analyzer"] == null)
+            {
+                Application["Analyzer"] = "lexiconMT";
+            }
+        }
+
+        protected void btnLex_Click(object sender, EventArgs e)
+        {
+            Application["Analyzer"] = "lexiconMT";
+        }
+
+        protected void btnML_Click(object sender, EventArgs e)
+        {
+            Application["Analyzer"] = "machineLearningMT";
         }
     }
 }
