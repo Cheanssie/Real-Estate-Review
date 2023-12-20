@@ -36,7 +36,7 @@ namespace PropertyWebsite.WebPages.Client
 
         protected void rptProd_ItemCreated(object sender, RepeaterItemEventArgs e)
         {
-            if(e.Item.ItemType == ListItemType.Item)
+            if(e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 DataRowView dataItem = e.Item.DataItem as DataRowView;
 
