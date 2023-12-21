@@ -211,7 +211,7 @@
                 <div class="col">
                     <label class="form-label">Category</label>
                     <asp:DropDownList ID="ddlPropCategory" CssClass="form-select" runat="server">
-                        <asp:ListItem>Airbnb</asp:ListItem>
+                        <asp:ListItem>Air Bnb</asp:ListItem>
                         <asp:ListItem>Homestay</asp:ListItem>
                         <asp:ListItem>Hotel</asp:ListItem>
                     </asp:DropDownList>
